@@ -6,8 +6,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <fragment
-        android:name="co.togthrapp.togthr.Fragments.TimelineFragment"
+    <RelativeLayout
         android:id="@+id/fragment_content"
         android:layout_weight="1"
         android:layout_width="match_parent"

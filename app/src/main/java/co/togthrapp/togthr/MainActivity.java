@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
+import co.togthrapp.togthr.Fragments.GalleryFragment;
+import co.togthrapp.togthr.Fragments.ListsFragment;
+import co.togthrapp.togthr.Fragments.StoreFragment;
 import co.togthrapp.togthr.Fragments.TimelineFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        openFragment(new TimelineFragment());
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -33,17 +38,19 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_gallery:
-
+                        GalleryFragment galleryFragment = new GalleryFragment();
+                        openFragment(galleryFragment);
                         return true;
 
                     case R.id.nav_lists:
-
+                        ListsFragment listsFragment = new ListsFragment();
+                        openFragment(listsFragment);
                         return true;
 
                     case R.id.nav_store:
-
+                        StoreFragment storeFragment = new StoreFragment();
+                        openFragment(storeFragment);
                         return true;
-
                 }
                 return true;
             }
