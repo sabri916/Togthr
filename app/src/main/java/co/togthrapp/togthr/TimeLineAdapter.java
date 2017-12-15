@@ -63,8 +63,8 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
                 StringBuilder sb = new StringBuilder("");
                 for (String t : tags) {
                     sb.append(t + " ");
-                    holder.tagsTextView.setText(sb.toString());
                 }
+                holder.tagsTextView.setText(sb.toString());
             }
         }
     }
