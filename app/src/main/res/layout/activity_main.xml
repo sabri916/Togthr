@@ -6,13 +6,9 @@
     android:layout_height="match_parent"
     tools:context="co.togthrapp.togthr.MainActivity">
 
-    <com.github.vipulasri.timelineview.TimelineView
-        android:id="@+id/time_marker"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:markerSize="20dp"
-        app:lineSize="2dp"
-        app:line="@color/colorPrimary"
-        app:linePadding="5dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_timeline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </android.support.constraint.ConstraintLayout>
