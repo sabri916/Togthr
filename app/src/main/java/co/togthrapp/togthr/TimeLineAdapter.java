@@ -15,16 +15,18 @@ import com.github.vipulasri.timelineview.TimelineView;
 
 import java.util.List;
 
+import co.togthrapp.togthr.DatabaseModel.BaseTimelineItem;
+
 /**
  * Created by HP-HP on 05-12-2015.
  */
 public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
 
-    private List<String> mFeedList;
+    private List<BaseTimelineItem> mFeedList;
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
-    public TimeLineAdapter(List<String> feedList) {
+    public TimeLineAdapter(List<BaseTimelineItem> feedList) {
         mFeedList = feedList;
     }
 
@@ -45,8 +47,8 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
     @Override
     public void onBindViewHolder(TimeLineViewHolder holder, int position) {
 
-        String timeLineModel = mFeedList.get(position);
-        holder.text.setText(timeLineModel);
+        //String timeLineModel = mFeedList.get(position);
+        //holder.text.setText(timeLineModel);
     }
 
     @Override

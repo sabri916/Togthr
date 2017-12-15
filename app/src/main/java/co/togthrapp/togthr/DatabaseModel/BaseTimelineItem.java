@@ -6,19 +6,13 @@ import java.util.List;
  * Created by sabri on 15/12/17.
  */
 
-public class ChatModel extends BaseTimelineItem{
+public class BaseTimelineItem {
 
-    private String text;
+    protected String author;
+    protected String type;
+    protected List<String> tags;
 
-    public ChatModel() {
-        //empty because POJO
-    }
-
-    public ChatModel(String author, String type, String text, List<String> tags) {
-        this.author = author;
-        this.type = type;
-        this.text = text;
-        this.tags = tags;
+    public BaseTimelineItem() {
     }
 
     public String getAuthor() {
@@ -37,13 +31,6 @@ public class ChatModel extends BaseTimelineItem{
         this.type = type;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 
     public List<String> getTags() {
         return tags;
