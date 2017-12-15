@@ -121,15 +121,6 @@ public class TimelineFragment extends Fragment {
                 return true;
             }
         });
-        sendImageView = view.findViewById(R.id.iv_send_text);
-        sendImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Create chat model
-                storeTextInDatabase(chatEditText.getText().toString());
-                chatEditText.setText("");
-            }
-        });
     }
 
     private void storeTextInDatabase(String message) {
