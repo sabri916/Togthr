@@ -11,8 +11,11 @@ import android.view.LayoutInflater;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.github.vipulasri.timelineview.TimelineView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.togthrapp.togthr.DatabaseModel.BaseTimelineItem;
@@ -46,16 +49,23 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
         mContext = parent.getContext();
         mLayoutInflater = LayoutInflater.from(mContext);
         View view = mLayoutInflater.inflate(layoutId,parent,false);
-
         return new TimeLineViewHolder(view, viewType);
     }
 
     @Override
     public void onBindViewHolder(TimeLineViewHolder holder, int position) {
 
-        if(mFeedList.get(position) instanceof ChatModel){
+        if(mFeedList.get(position) instanceof ChatModel) {
             String message = ((ChatModel) mFeedList.get(position)).getText();
             holder.text.setText(message);
+            ArrayList<String> tags = (ArrayList<String>) mFeedList.get(position).getTags();
+            if (tags != null){
+                StringBuilder sb = new StringBuilder("");
+                for (String t : tags) {
+                    sb.append(t + " ");
+                    holder.tagsTextView.setText(sb.toString());
+                }
+            }
         }
     }
 
