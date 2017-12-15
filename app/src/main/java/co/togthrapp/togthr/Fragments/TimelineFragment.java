@@ -60,12 +60,6 @@ public class TimelineFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_timeline, container, false);
 
-        try {
-            setUpTopBar(fragmentView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         setUpTextBox(fragmentView);
 
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.rv_timeline);
@@ -153,29 +147,4 @@ public class TimelineFragment extends Fragment {
         DatabaseReference myRef = database.getReference("timeline");
         myRef.push().setValue(chatModel);
     }
-
-    private void setUpTopBar(View view) throws IOException {
-        ///////////////Profile icon
-        final ImageView profileImageView = (ImageView) view.findViewById(R.id.iv_icon_profile);
-        String uid = FirebaseAuth.getInstance().getUid();
-        final File localFile = File.createTempFile("profile","png");
-        StorageReference storageReference =
-                FirebaseStorage.getInstance().getReference("profile_photo/" + uid + "/profile.png");
-        storageReference.getFile(localFile)
-                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Picasso.with(getContext()).load(localFile)
-                                .into(profileImageView);
-                    }
-                });
-        profileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
 }
