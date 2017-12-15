@@ -16,6 +16,7 @@ import com.github.vipulasri.timelineview.TimelineView;
 import java.util.List;
 
 import co.togthrapp.togthr.DatabaseModel.BaseTimelineItem;
+import co.togthrapp.togthr.DatabaseModel.ChatModel;
 
 /**
  * Created by HP-HP on 05-12-2015.
@@ -37,9 +38,14 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
 
     @Override
     public TimeLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        int position = viewType;
+        int layoutId = 0;
+        if(mFeedList.get(position) instanceof ChatModel){
+            layoutId = R.layout.item_timeline_text;
+        }
         mContext = parent.getContext();
         mLayoutInflater = LayoutInflater.from(mContext);
-        View view = mLayoutInflater.inflate(R.layout.item_timeline,parent,false);
+        View view = mLayoutInflater.inflate(layoutId,parent,false);
 
         return new TimeLineViewHolder(view, viewType);
     }
@@ -47,8 +53,10 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
     @Override
     public void onBindViewHolder(TimeLineViewHolder holder, int position) {
 
-        //String timeLineModel = mFeedList.get(position);
-        //holder.text.setText(timeLineModel);
+        if(mFeedList.get(position) instanceof ChatModel){
+            String message = ((ChatModel) mFeedList.get(position)).getText();
+            holder.text.setText(message);
+        }
     }
 
     @Override
