@@ -14,8 +14,9 @@ import co.togthrapp.togthr.Fragments.GalleryFragment;
 import co.togthrapp.togthr.Fragments.ListsFragment;
 import co.togthrapp.togthr.Fragments.StoreFragment;
 import co.togthrapp.togthr.Fragments.TimelineFragment;
+import co.togthrapp.togthr.base.FirebaseBaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FirebaseBaseActivity {
 
     private RecyclerView mRecyclerView;
     private TimeLineAdapter mTimeLineAdapter;
