@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/nav_timeline"
-        android:icon="@drawable/ic_change_history_black_24dp"
+        android:icon="@drawable/chat"
         android:title="Timeline" />
     <item
         android:id="@+id/nav_gallery"
-        android:icon="@drawable/ic_change_history_black_24dp"
+        android:icon="@drawable/gallery"
         android:title="Gallery"/>
     <item
         android:id="@+id/nav_lists"
-        android:icon="@drawable/ic_change_history_black_24dp"
+        android:icon="@drawable/lists"
         android:title="Lists" />
     <item
         android:id="@+id/nav_store"
-        android:icon="@drawable/ic_change_history_black_24dp"
-        android:title="Store" />
+        android:icon="@drawable/offers"
+        android:title="Offers" />
 </menu>
