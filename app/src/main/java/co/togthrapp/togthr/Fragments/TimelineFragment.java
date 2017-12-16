@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ import java.util.ArrayList;
 import co.togthrapp.togthr.DatabaseModel.BaseTimelineItem;
 import co.togthrapp.togthr.DatabaseModel.ChatModel;
 import co.togthrapp.togthr.DatabaseModel.PictureModel;
+import co.togthrapp.togthr.DatabaseModel.VoteModel;
 import co.togthrapp.togthr.ProfileActivity;
 import co.togthrapp.togthr.R;
 import co.togthrapp.togthr.TimeLineAdapter;
@@ -157,6 +159,29 @@ public class TimelineFragment extends Fragment {
                                     intent.setAction(Intent.ACTION_GET_CONTENT);
                                     startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_CODE_PICK_IMAGE);
                                 }
+                                if(position == 1){
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    builder.setTitle("Vote");
+
+                                    final EditText input = new EditText(getContext());
+                                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                                    builder.setView(input);
+
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                             String voteQuestionString = input.getText().toString();
+                                             mTimeLineAdapter.getFeedList().add(new VoteModel(
+                                                     FirebaseAuth.getInstance().getUid(),
+                                                     "vote",
+                                                     voteQuestionString,
+                                                     null
+                                             ));
+                                        }
+                                    });
+
+                                    builder.show();
+                                }
                             }
                         }).create();
                 alertDialog.show();
@@ -175,8 +200,16 @@ public class TimelineFragment extends Fragment {
             try {
                 inputStream = getContext().getContentResolver().openInputStream(data.getData());
                 File imageFile = inputStreamToFile(inputStream);
-                mTimeLineAdapter.getFeedList().add(new PictureModel())
-
+                ArrayList<String> tags = new ArrayList<>(2);
+                tags.add("#beach");
+                tags.add("#weekend");
+                mTimeLineAdapter.getFeedList().add(new PictureModel(
+                        FirebaseAuth.getInstance().getUid(),
+                        "picture",
+                        imageFile,
+                        tags
+                ));
+                mTimeLineAdapter.notifyDataSetChanged();
 
             } catch (Exception e) {
                 e.printStackTrace();

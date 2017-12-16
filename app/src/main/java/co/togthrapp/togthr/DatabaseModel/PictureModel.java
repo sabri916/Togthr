@@ -1,5 +1,6 @@
 package co.togthrapp.togthr.DatabaseModel;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -7,24 +8,24 @@ import java.util.List;
  */
 
 public class PictureModel extends BaseTimelineItem {
-    private String pictureId;
+    private File pictureFile;
 
     public PictureModel() {
         //Pojo
     }
 
-    public PictureModel(String author, String type, String pictureId, List<String> tags) {
+    public PictureModel(String author, String type, File pictureFile, List<String> tags) {
         this.author = author;
         this.type = type;
-        this.pictureId = pictureId;
+        this.pictureFile = pictureFile;
         this.tags = tags;
     }
 
-    public String getPictureId() {
-        return pictureId;
+    public File getPictureFile() {
+        return pictureFile;
     }
 
-    public void setPictureId(String pictureId) {
-        this.pictureId = pictureId;
+    public void setPictureFile(File pictureFile) {
+        this.pictureFile = pictureFile;
     }
 }
