@@ -60,8 +60,8 @@ public class TimelineFragment extends Fragment {
     private static final int REQUEST_CODE_PICK_IMAGE = 1234;
     private EditText chatEditText;
     private ImageView sendImageView;
-    private RecyclerView mRecyclerView;
-    private TimeLineAdapter mTimeLineAdapter;
+    public RecyclerView mRecyclerView;
+    public TimeLineAdapter mTimeLineAdapter;
 
     public TimelineFragment() {
         // Required empty public constructor
@@ -126,6 +126,45 @@ public class TimelineFragment extends Fragment {
 
         //set adapter
         mTimeLineAdapter = new TimeLineAdapter(chatterArrayList);
+        //check if there are offers to post
+        Bundle bundle = getArguments();
+        if(bundle != null && chatterArrayList != null) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Vote");
+
+            final EditText input = new EditText(getContext());
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setText(bundle.getString("offer"));
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String voteQuestionString = input.getText().toString();
+                    mTimeLineAdapter.getFeedList().add(new VoteModel(
+                            FirebaseAuth.getInstance().getUid(),
+                            "vote",
+                            voteQuestionString,
+                            null
+                    ));
+                    mTimeLineAdapter.notifyDataSetChanged();
+                }
+            });
+
+            builder.show();
+
+            ArrayList<String> tags = new ArrayList<>();
+            tags.add("#offers");
+            String voteQuestion = bundle.getString("offer");
+            chatterArrayList.add(new VoteModel(
+                    FirebaseAuth.getInstance().getUid(),
+                    "vote",
+                    voteQuestion,
+                    tags
+            ));
+        }
+
         mRecyclerView.setAdapter(mTimeLineAdapter);
         mRecyclerView.scrollToPosition(chatterArrayList.size()-1);
         return fragmentView;

@@ -9,6 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+
+import co.togthrapp.togthr.DatabaseModel.ChatModel;
 import co.togthrapp.togthr.Fragments.GalleryFragment;
 import co.togthrapp.togthr.Fragments.ListsFragment;
 import co.togthrapp.togthr.Fragments.StoreFragment;
@@ -57,7 +62,18 @@ public class MainActivity extends FirebaseBaseActivity {
         });
     }
 
-    private void openFragment(Fragment fragment) {
+    void openFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_content, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    void postOffer(String voteQuestion, TimelineFragment fragment){
+        Bundle bundle = new Bundle();
+        bundle.putString("offer", voteQuestion);
+        fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_content, fragment);

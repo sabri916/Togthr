@@ -47,7 +47,7 @@ public class StoreFragment extends Fragment {
         offerArrayList.add(new StoreModel("Dream Oasis","5 tickes for 5 Rials!",R.drawable.dream_oasis));
         offerArrayList.add(new StoreModel("Dream Oasis2","52 tickes for 5 Rials!",R.drawable.dream_oasis));
 
-        mStoreAdapter = new StoreAdapter(getContext(),offerArrayList);
+        mStoreAdapter = new StoreAdapter(getContext(),offerArrayList,getActivity());
         mRecyclerView.setAdapter(mStoreAdapter);
 
         return rootView;
