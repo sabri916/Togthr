@@ -40,6 +40,10 @@ import co.togthrapp.togthr.DatabaseModel.ChatModel;
  */
 public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
 
+    public List<BaseTimelineItem> getFeedList() {
+        return mFeedList;
+    }
+
     private List<BaseTimelineItem> mFeedList;
     private Context mContext;
     private LayoutInflater mLayoutInflater;
@@ -57,9 +61,15 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
     public TimeLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int position = viewType;
         int layoutId = 0;
-        if(mFeedList.get(position) instanceof ChatModel){
+        if(mFeedList != null && !mFeedList.isEmpty()) {
+            if (mFeedList.get(position) instanceof ChatModel) {
+                layoutId = R.layout.item_timeline_text;
+            }
+        }
+        else {
             layoutId = R.layout.item_timeline_text;
         }
+        layoutId = R.layout.item_timeline_text;
         mContext = parent.getContext();
         mLayoutInflater = LayoutInflater.from(mContext);
         View view = mLayoutInflater.inflate(layoutId,parent,false);

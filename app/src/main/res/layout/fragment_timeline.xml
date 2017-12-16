@@ -52,6 +52,7 @@
                 android:id="@+id/iv_send_media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:src="@drawable/add_new"/>
         </LinearLayout>
 
