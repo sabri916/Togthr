@@ -5,6 +5,11 @@ package co.togthrapp.togthr;
  */
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 
@@ -14,7 +19,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.vipulasri.timelineview.TimelineView;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,19 +67,58 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(TimeLineViewHolder holder, int position) {
+    public void onBindViewHolder(final TimeLineViewHolder holder, int position) {
 
         if(mFeedList.get(position) instanceof ChatModel) {
-            String message = ((ChatModel) mFeedList.get(position)).getText();
+            ChatModel chatModel = (ChatModel) mFeedList.get(position);
+            String message = chatModel.getText();
             holder.text.setText(message);
             ArrayList<String> tags = (ArrayList<String>) mFeedList.get(position).getTags();
-            if (tags != null){
+            if (tags != null) {
                 StringBuilder sb = new StringBuilder("");
                 for (String t : tags) {
                     sb.append(t + " ");
                 }
                 holder.tagsTextView.setText(sb.toString());
             }
+
+            String uid = chatModel.getAuthor();
+            Log.i("uid",uid);
+
+            StorageReference storageReference =
+                    FirebaseStorage.getInstance().
+                            getReference("profile_photo/" + uid + "/profile.png");
+
+
+            File localFile = null;
+            try {
+                localFile = File.createTempFile("images", "png");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            final File finalLocalFile = localFile;
+            storageReference.getFile(localFile)
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Picasso.with(mContext)
+                                    .load(finalLocalFile)
+                                    .into(new Target() {
+                                        @Override
+                                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                            holder.timelineView.setMarker(new BitmapDrawable(mContext.getResources(), bitmap));
+                                        }
+
+                                        @Override
+                                        public void onBitmapFailed(Drawable errorDrawable) {
+                                        }
+
+                                        @Override
+                                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                        }
+                                    });
+                        }
+                    });
         }
     }
 

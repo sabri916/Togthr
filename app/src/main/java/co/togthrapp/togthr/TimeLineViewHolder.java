@@ -13,15 +13,16 @@ import com.github.vipulasri.timelineview.TimelineView;
 
 class TimeLineViewHolder extends RecyclerView.ViewHolder {
 
-    private final TimelineView mTimelineView;
+
     protected TextView text;
     protected TextView tagsTextView;
+    protected TimelineView timelineView;
 
     public TimeLineViewHolder(View view, int viewType) {
         super(view);
 
-        mTimelineView = (TimelineView) itemView.findViewById(R.id.time_marker);
-        mTimelineView.initLine(viewType);
+        timelineView = (TimelineView) itemView.findViewById(R.id.time_marker);
+        timelineView.initLine(viewType);
         text = (TextView) itemView.findViewById(R.id.item_timeline_text);
         tagsTextView = itemView.findViewById(R.id.tv_tags);
     }

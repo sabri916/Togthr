@@ -13,9 +13,9 @@
             android:id="@+id/time_marker"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:markerSize="50dp"
-            app:lineSize="3dp"
-            app:marker="@mipmap/ic_launcher"
+            app:markerSize="40dp"
+            app:lineSize="2dp"
+            app:marker="@drawable/ic_face_black_24dp"
             app:line="@color/colorPrimary"/>
 
         <LinearLayout
